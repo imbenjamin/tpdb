@@ -1,0 +1,14 @@
+<% content_for :title do -%>
+    <%= t('global.types.manufacturer').pluralize(2) %>
+<% end -%>
+<h1><%= t('global.types.manufacturer').pluralize(2) %></h1>
+<p>
+    <%= link_to((fa_icon 'plus')+' '+t('generic.new'), new_manufacturer_path) %>
+</p>
+<p>
+    <ul class="list-unstyled">
+        <% @manufacturers.each do |manufacturer| %>
+            <li><%= link_to manufacturer.name, manufacturer %></li>
+        <% end %>
+    </ul>
+</p>

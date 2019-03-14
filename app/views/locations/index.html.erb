@@ -1,0 +1,47 @@
+<% content_for :title do -%>
+    <%= t('global.types.location').pluralize(2) %>
+<% end -%>
+<h1><%= t('global.types.location').pluralize(2) %></h1>
+<p>
+    <%= link_to((fa_icon 'plus')+" #{t('generic.new')}", new_location_path) %>
+</p>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col"><%= t('generic.name') %></th>
+            <th scope="col"><%= t('generic.address') %></th>
+            <th scope="col"><%= t('global.types.area').pluralize(2) %></th>
+            <th scope="col"><%= t('global.types.attraction').pluralize(2) %></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @locations.each do |location| %>
+            <% if !location.parent %>
+                <tr>
+                    <td><%= link_to location.name, location_path(location) %></td>
+                    <td><%= location.city ? location.city + ',' : '' %> <%= location.state ? location.state + ',' : '' %> <%= location.country ? location.country : '' %></td>
+                    <td><%= location.areas.count %></td>
+                    <td><%= location.attractions.count %></td>
+                </tr>
+                <%
+          def render_children(node)
+            node.children.each do |childLocation|
+        %>
+                <tr>
+                    <td>&emsp;<%= fa_icon "angle-right" %> <%= link_to childLocation.name, location_path(childLocation) %></td>
+                    <td><%= childLocation.city ? childLocation.city + ',' : '' %> <%= childLocation.state ? childLocation.state + ',' : '' %> <%= childLocation.country ? childLocation.country : '' %></td>
+                    <td><%= childLocation.areas.count %></td>
+                    <td><%= childLocation.attractions.count %></td>
+                </tr>
+                <%
+              if childLocation.children.any?
+                render_children(childLocation)
+              end
+            end
+          end
+          render_children(location)
+        %>
+            <% end %>
+        <% end %>
+    </tbody>
+</table>

@@ -1,0 +1,26 @@
+<% content_for :title do -%>
+    <%= @area.name %>
+<% end -%>
+<div class="row">
+    <div class="col">
+        <h1 class="nolinebreak"><%= @area.name %></h1>
+        <%= link_to edit_area_path(@area) do %><%= fa_icon "edit" %><% end %><span class="linebreaker"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-8">
+        <p class="lead"><%= t('area.area_in') %> <%= link_to @area.location.name, @area.location %></p>
+        <h4><%= t('area.attractions') %></h4>
+        <ul class="list-unstyled">
+            <% @area.attractions.each do |attraction| %>
+                <li><%= link_to attraction.name, location_attraction_path(location_slug: attraction.location.slug, slug: attraction.slug) %>
+                    - <%= link_to attraction.attraction_type.name, attraction.attraction_type %></li>
+            <% end %>
+        </ul>
+    </div>
+    <div class="col-4">
+        <% if @area.logo.attached? %>
+            <%= image_tag(@area.logo.variant(resize: '300x250'), alt: "Logo for #{@area.name}", class: "float-right") %>
+        <% end %>
+    </div>
+</div>

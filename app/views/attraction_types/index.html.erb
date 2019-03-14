@@ -1,0 +1,14 @@
+<% content_for :title do -%>
+    <%= t('global.types.attraction_type').pluralize(2) %>
+<% end -%>
+<h1><%= t('global.types.attraction_type').pluralize(2) %></h1>
+<p>
+    <%= link_to((fa_icon 'plus')+' New', new_attraction_type_path) %>
+</p>
+<p>
+    <ul class="list-unstyled">
+        <% @attraction_types.each do |type| %>
+            <li><%= link_to type.name, type %></li>
+        <% end %>
+    </ul>
+</p>

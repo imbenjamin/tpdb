@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col">
+        <%= form_with model: @attraction, local: true do |form| %>
+            <% if @attraction.errors.any? %>
+                <div id="error_explanation">
+                    <h2>
+                        <%= pluralize(@attraction.errors.count, "error") %> prohibited
+                        this attraction from being saved:
+                    </h2>
+                    <ul>
+                        <% @attraction.errors.full_messages.each do |msg| %>
+                            <li><%= msg %></li>
+                        <% end %>
+                    </ul>
+                </div>
+            <% end %>
+            <div class="row">
+                <div class="col-8">
+                    <div class="form-group">
+                        <%= form.label :name %>
+                        <%= form.text_field :name, size: 60, class: 'form-control form-control-lg' %>
+                    </div>
+                    <div class="form-group">
+                        <%= form.label :attraction_type %>
+                        <%= form.collection_select(:attraction_type_id, AttractionType.all, :id, :name, {prompt: true}, {class: 'form-control'})  %>
+                    </div>
+                    <div class="form-group">
+                        <%= form.label :description %>
+                        <%= form.text_area :description, size: "60x5", class: 'form-control' %>
+                    </div>
+                    <div class="form-group">
+                        <%= form.label :location %>
+                        <%= form.collection_select(:location_id, Location.order(:name), :id, :name, {prompt: true}, {disabled: params[:fixed_location], class: 'form-control'})  %>
+                    </div>
+                    <div class="form-group">
+                        <%= form.label :area %>
+                        <%= form.grouped_collection_select(:area_id, Location.order(:name), :areas, :name, :id, :name, {include_blank: 'No Area Attributed'}, {disabled: params[:fixed_area], class: 'form-control'})  %>
+                        <%= form.grouped_collection_select(:area_id, Location.order(:name), :areas, :name, :id, :name, {include_blank: 'No Area Attributed'}, {id: "allareasoptions", hidden: true})  %>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <%= form.label :height %>
+                        <div class="input-group">
+                            <%= form.number_field :height, in: 0..1000, step:0.01, class: 'form-control' %>
+                            <div class="input-group-append">
+                                <span class="input-group-text"><%= t('global.units.m') %></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <%= form.label :length %>
+                        <div class="input-group">
+                            <%= form.number_field :length, in: 0..10000, step:0.01, class: 'form-control' %>
+                            <div class="input-group-append">
+                                <span class="input-group-text"><%= t('global.units.m') %></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <%= form.label :top_speed %>
+                        <div class="input-group">
+                            <%= form.number_field :top_speed, in: 0..500, step:0.01, class: 'form-control' %>
+                            <div class="input-group-append">
+                                <span class="input-group-text"><%= t('global.units.ms') %></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <%= form.label :inversions %>
+                        <%= form.number_field :inversions, in: 0..50, step: 1, class: 'form-control' %>
+                    </div>
+                    <div class="form-group">
+                        <%= form.label :capacity %>
+                        <div class="input-group">
+                            <%= form.number_field :capacity, in: 0..10000, step:100, class: 'form-control' %>
+                            <div class="input-group-append">
+                                <span class="input-group-text"><%= t('attractions.people_per_hour') %></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <%= form.submit nil, {class: "btn btn-primary"} %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>

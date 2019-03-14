@@ -1,0 +1,35 @@
+<% content_for :title do -%>
+    Search results for '<%= params[:q] %>'
+<% end -%>
+
+<div class="row">
+    <div class="col">
+        <h1>Search results for '<%= params[:q] %>'</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-7">
+        <h2>Attractions</h2>
+        <% if @r_attractions.any? %>
+            <ul class="list-unstyled">
+                <% @r_attractions.each do |result| %>
+                    <li><%= link_to result.name, location_attraction_path(slug: result.slug, location_slug: result.location.slug) %> - <%= result.attraction_type.name %> at <%= link_to result.location.name, result.location %></li>
+                <% end %>
+            </ul>
+        <% else %>
+            <p>No results</p>
+        <% end %>
+    </div>
+    <div class="col-5">
+        <h2>Locations</h2>
+        <% if @r_locations.any? %>
+            <ul class="list-unstyled">
+                <% @r_locations.each do |result| %>
+                    <li><%= link_to result.name, result %></li>
+                <% end %>
+            </ul>
+        <% else %>
+            <p>No results</p>
+        <% end %>
+    </div>
+</div>

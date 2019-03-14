@@ -1,0 +1,52 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+ 
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+@import "bootstrap";
+@import "font-awesome";
+
+.row {
+    padding-bottom: 1rem;
+}
+
+.sitetitle {
+    display: inline-block;
+}
+
+.siteslogan {
+    margin-left: 1rem;
+    font-size: 1.5rem;
+}
+
+.siteslogan::after {
+    content: "\a";
+    white-space: pre;
+}
+
+.linebreaker::after {
+    content: "\a";
+    white-space: pre;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 1.25rem;
+    margin-bottom: 0.75rem;
+    
+}
+
+h1.nolinebreak, h2.nolinebreak, h3.nolinebreak, h4.nolinebreak, h5.nolinebreak, h6.nolinebreak {
+    display: inline-block;
+}

@@ -1,0 +1,5 @@
+<% content_for :title do -%>
+    <%= t('generic.editing') %> <%= @location.name %>
+<% end -%>
+<h1><%= t('generic.editing') %> <%= link_to @location.name, @location %></h1>
+<%= render 'form' %>

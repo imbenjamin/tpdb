@@ -1,0 +1,15 @@
+<% content_for :title do -%>
+    <%= @manufacturer.name %>
+<% end -%>
+<h1><%= @manufacturer.name %></h1>
+<p><%= link_to @manufacturer.website, @manufacturer.website, target: "_blank" %></p>
+<% if @manufacturer.description.length > 0 %>
+    <h4><%= t('generic.description') %></h4>
+    <p><%= @manufacturer.description %></p>
+<% end %>
+<h4><%= t('global.types.attraction').pluralize(2) %></h4>
+<ul class="list-unstyled">
+    <% @manufacturer.attractions.each do |attraction| %>
+        <li><%= link_to attraction.name, location_attraction_path(location_slug: attraction.location.slug, slug: attraction.slug) %> - <%= link_to attraction.attraction_type.name, attraction.attraction_type %> at <%= link_to attraction.location.name, attraction.location %></li>
+    <% end %>
+</ul>

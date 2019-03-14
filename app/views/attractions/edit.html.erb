@@ -1,0 +1,5 @@
+<% content_for :title do -%>
+    <%= t('generic.editing')+' '+@attraction.name %>
+<% end -%>
+<h1><%= t('generic.editing')+' '+@attraction.name %></h1>
+<%= render 'form' %>

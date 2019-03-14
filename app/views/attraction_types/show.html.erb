@@ -1,0 +1,29 @@
+<% content_for :title do -%>
+    <%= @attraction_type.name.pluralize(2) %>
+<% end -%>
+<h1><%= @attraction_type.name.pluralize(2) %></h1>
+<h4><%= t('global.types.attraction').pluralize(2) %></h4>
+<p>
+    <ul class="list-unstyled">
+        <% @attraction_type.attractions.each do |attraction| %>
+            <li><%= link_to attraction.name, location_attraction_path(location_slug: attraction.location.slug, slug: attraction.slug) %> - <%= link_to attraction.location.name, attraction.location %></li>
+        <% end %>
+    </ul>
+</p>
+<h4><%= t('global.types.manufacturer').pluralize(2) %></h4>
+<p>
+    <ul class="list-unstyled">
+        <%
+            manufacturers = Set[]
+            @attraction_type.attractions.each do |attraction|
+                manufacturers.add(attraction.manufacturer)
+            end
+
+            manufacturers.each do |manufacturer|
+            %>
+        <li><%= link_to manufacturer.name, manufacturer %></li>
+        <%
+            end
+        %>
+    </ul>
+</p>

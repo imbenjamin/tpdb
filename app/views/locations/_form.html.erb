@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col">
+        <%= form_with model: @location, local: true do |form| %>
+            <% if @location.errors.any? %>
+                <div id="error_explanation">
+                    <h2>
+                        <%= pluralize(@location.errors.count, "error") %> prohibited
+                        this location from being saved:
+                    </h2>
+                    <ul>
+                        <% @location.errors.full_messages.each do |msg| %>
+                            <li><%= msg %></li>
+                        <% end %>
+                    </ul>
+                </div>
+            <% end %>
+            <div class="row">
+                <div class="col-8">
+                    <div class="form-group">
+                        <%= form.label :name %>
+                        <%= form.text_field :name, size: 60, class: 'form-control form-control-lg' %>
+                    </div>
+                    <div class="form-group">
+                        <%= form.label :parent %>
+                        <%= form.collection_select(:parent_id, Location.order(:name), :id, :name, {prompt: true, include_blank: 'No Parent Location'}, {disabled: params[:fixed_location], class: 'form-control'})  %>
+                    </div>
+                    <div class="form-group">
+                        <%= form.label :description %>
+                        <%= form.text_area :description, size: "60x5", class: 'form-control' %>
+                    </div>
+                    <div class="form-group">
+                        <%= form.label :address %>
+                        <%= form.text_field :address, size: 60, class: 'form-control' %>
+                    </div>
+                    <div class="form-group">
+                        <%= form.label :logo %>
+                        <%= form.file_field :logo, class: 'form-control-file' %>
+                    </div>
+                    <div class="form-group">
+                        <%= form.submit nil, {class: "btn btn-primary"} %>
+                    </div>
+                </div>
+                <div class="col-4">
+                <% if @location.logo.attached? %>
+                    <%= image_tag(@location.logo.variant(resize: '300x250'), alt: "Logo for #{@location.name}") %>
+                <% end %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

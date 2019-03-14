@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%= render 'layouts/head' %>
+    </head>
+    <body id="<%= params[:controller] %>" data-action="<%= params[:action] %>">
+        <div class="container">
+            <%= render 'layouts/header' %>
+            <%= yield %>
+            <%= render 'layouts/footer' %>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,49 @@
+<% content_for :title do -%>
+    <%= @attraction.name %>
+<% end -%>
+<div class="row">
+    <div class="col">
+        <h1 class="nolinebreak"><%= @attraction.name %></h1> <%= link_to edit_attraction_path(@attraction) do %><%= fa_icon "edit" %><% end %><span class="linebreaker"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-8">
+        <p><%= t('attractions.attraction_at_location_html', attraction: link_to(@attraction.attraction_type.name, @attraction.attraction_type), location: link_to(@attraction.location.name, @attraction.location)) %>.
+            <% if @attraction.area %>
+                <%= t('attractions.located_in_the_x_area_html', area: link_to(@attraction.area.name, location_area_path(location_slug: @attraction.location.slug, slug: @attraction.area.slug))) %>
+            <% end %>
+        </p>
+        <% if @attraction.description %>
+            <h4><%= t('generic.description') %></h4>
+            <p><%= @attraction.description %></p>
+        <% end %>
+        <h4><%= t('global.types.manufacturer') %></h4>
+        <p><%= link_to @attraction.manufacturer.name, manufacturer_path(@attraction.manufacturer) %></p>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <% if @attraction.top_speed? %><li><strong><%= t('attractions.top_speed') %></strong> 
+                        <%= number_with_delimiter(@attraction.top_speed.round(1)) %><%= t('global.units.ms') %> 
+                        <small>(<%= number_with_delimiter(@attraction.top_speed_in_mph.round(1)) %><%= t('global.units.mph') %>)</small></li>
+                    <% end %>
+                    <% if @attraction.length? %><li><strong><%= t('attractions.length') %></strong> 
+                        <%= number_with_delimiter(@attraction.length.round(1)) %><%= t('global.units.m') %> 
+                        <small>(<%= number_with_delimiter(@attraction.length_in_ft.round(1)) %><%= t('global.units.ft') %>)</small></li>
+                    <% end %>
+                    <% if @attraction.height? %><li><strong><%= t('attractions.height') %></strong> 
+                        <%= number_with_delimiter(@attraction.height.round(1)) %><%= t('global.units.m') %> 
+                        <small>(<%= number_with_delimiter(@attraction.height_in_ft.round(1)) %><%= t('global.units.ft') %>)</small></li>
+                    <% end %>
+                    <% if @attraction.inversions? %><li><strong><%= t('attractions.inversions') %></strong> 
+                        <%= @attraction.inversions %></li>
+                    <% end %>
+                    <% if @attraction.capacity? %><li><strong><%= t('attractions.capacity') %></strong> 
+                        <%= number_with_delimiter(@attraction.capacity) %> <small><%= t('attractions.people_per_hour') %></small></li>
+                    <% end %>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

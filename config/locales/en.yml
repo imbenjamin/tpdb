@@ -1,0 +1,78 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+    helpers:
+      submit:
+        create: "Create a new %{model}"
+        update: "Update %{model}"
+    global:
+        site_name:
+            short: "TPDB"
+            long: "Theme Park Database"
+        types:
+            location: "Location"
+            attraction_type: "Attraction Type"
+            manufacturer: "Manufacturer"
+            attraction: "Attraction"
+            area: "Area"
+        units:
+            ms: "m/s"
+            mph: "mph"
+            m: "m"
+            ft: "ft"
+    generic:
+        new: "New"
+        name: "Name"
+        description: "Description"
+        are_you_sure: "Are you sure?"
+        editing: "Editing"
+        at: "at"
+        address: "Address"
+    locations:
+        title:
+            new_location: "New Location"
+    area:
+        title:
+            new_area: "New Area"
+        area_in: "Area in"
+    attractions:
+        title:
+            new_attraction: "New Attraction"
+        attraction_at_location_html: "%{attraction} at %{location}"
+        located_in_the_x_area_html: "Located in the %{area} area."
+        top_speed: "Top Speed"
+        height: "Height"
+        length: "Length"
+        capacity: "Capacity"
+        inversions: "Inversions"
+        people_per_hour: "people per hour"
+

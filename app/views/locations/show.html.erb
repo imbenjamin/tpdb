@@ -1,0 +1,87 @@
+<% content_for :title do -%>
+    <%= @location.name %>
+<% end -%>
+<div class="row">
+    <div class="col">
+        <h1 class="nolinebreak"><%= @location.name %></h1>
+         <%= link_to edit_location_path(@location) do %><%= fa_icon "edit" %><% end %><span class="linebreaker"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-7">
+        <p class="lead"><%= @location.description %></p>
+        <% if @location.parent %>
+            <p><strong>Located in</strong> <%= link_to @location.parent.name, @location.parent %></p>
+        <% end %>
+        <% if @location.children.any? %>
+            <p><strong>Location of</strong> <%= to_sentence(@location.children.map{ |c| link_to(c.name, c) }) %>
+            <% end %>
+            <% if @location.areas.count == 0 %>
+                <h2>Attractions</h2>
+                <%= link_to((fa_icon 'plus')+' New', new_attraction_path) %><br />
+                <ul class="list-unstyled">
+                    <% @location.attractions.each do |attraction| %>
+                        <li><strong><%= link_to attraction.name, location_attraction_path(location_slug: @location.slug, slug: attraction.slug) %></strong>&emsp;<%= attraction.description %></li>
+                    <% end %>
+                </ul>
+            <% else %>
+                <h2>Areas</h2>
+                <%= link_to((fa_icon 'plus')+' New Area', new_area_path(location: @location.id)) %> &emsp; <%= link_to((fa_icon 'plus')+' New Attraction', new_attraction_path(location: @location.id)) %><br />
+                <% @location.areas.each do |area| %>
+                    <h3><%= link_to area.name, area %></h3>
+                </span>
+                <% if area.attractions.count == 0 %>
+                    <p>No attractions are listed for this area.</p>
+                <% end %>
+                <ul class="list-unstyled">
+                    <% area.attractions.each do |attraction| %>
+                        <li><strong><%= link_to attraction.name, location_attraction_path(location_slug: @location.slug, slug: attraction.slug) %></strong> - <%= attraction.attraction_type.name %></li>
+                    <% end %>
+                </ul>
+                <%= link_to((fa_icon 'plus')+' Add a new Attraction to ' + area.name, new_attraction_path(location: @location.id, area: area.id)) %><br />
+            <% end %>
+            <% if @attractions_without_area.count > 0 %>
+                <h3>Attractions outside an area</h3>
+                <ul class="list-unstyled">
+                    <% @attractions_without_area.each do |attraction| %>
+                        <li><strong><%= link_to attraction.name, location_attraction_path(location_slug: @location.slug, slug: attraction.slug) %></strong></li>
+                    <% end %>
+                </ul>
+            <% end %>
+        <% end %>
+    </div>
+    <div class="col-5">
+        <div class="card">
+            <% if @location.logo.attached? %>
+                <%= image_tag(@location.logo.variant(resize: '300x250'), alt: "Logo for #{@location.name}", class: "card-img-top") %>
+            <% end %>
+            <div class="card-body">
+                <%= content_tag(
+                    :iframe,
+                        '',
+                        width: "100%",
+                        height: "250",
+                        frameborder: "0",
+                        style: "border:0", 
+                        src: "https://www.google.com/maps/embed/v1/place?key=AIzaSyClmFbKbkCdvBxhWFgf5X4SaCqc5IgYKhM&zoom=7&q=#{@location.address}&center=#{@location.latitude},#{@location.longitude}",
+                        allowfullscreen: true,
+                        alt: "#{@location.name} on the map"
+                    )
+                %>
+                <p>
+                    <strong>Address</strong> <%= @location.address %></p>
+                </p>
+                <p>
+                    <strong>Coordinates</strong> <%= @location.latitude %>, <%= @location.longitude %></p>
+                </p>
+                <p>
+                    <strong>Google Maps</strong> <%= link_to "Open in a new tab", "https://www.google.com/maps/place/?q=place_id:#{@location.google_place_id}", target: "_blank" %></p>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+    </div>
+</div>
