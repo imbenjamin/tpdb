@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+spacemountain:
+  name: 'Space Mountain'
+  slug: 'space-mountain'
+  area: tomorrowland
+  location: disneyland
+  attraction_type: rollercoaster
+  manufacturer: manuf1
+
+indianajones:
+  name: 'Indiana Jones Adventure'
+  slug: 'indiana-jones-adventure'
+  area: adventureland
+  location: disneyland
+  attraction_type: darkride
+  manufacturer: manuf2
+
+disneylandrr:
+  name: 'Disneyland Railroad'
+  slug: 'disneyland-railroad'
+  area: tomorrowland
+  location: disneyland
+  attraction_type: rollercoaster
+  manufacturer: manuf2

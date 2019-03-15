@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+adventureland:
+  name: 'Adventureland'
+  location: disneyland
+  slug: 'adventureland'
+
+tomorrowland:
+  name: 'Tomorrowland' 
+  location: disneyland
+  slug: 'tomorrowland'

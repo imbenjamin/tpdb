@@ -7,5 +7,9 @@ class ApplicationController < ActionController::Base
 
     def default_url_options
         { locale: I18n.locale }
-      end
+    end
+
+    def not_found
+        raise ActionController::RoutingError.new('Not Found')
+    end
 end

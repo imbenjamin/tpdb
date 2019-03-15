@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+manuf1:
+  name: 'Manufacturer 1'
+  slug: 'manufacturer-1'
+
+manuf2:
+  name: 'Manufacturer 2'
+  slug: 'manufacturer-2'

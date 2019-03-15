@@ -9,7 +9,7 @@ class AttractionType < ApplicationRecord
     def slug_candidates
         [
             name,
-                -> { "#{name}-#{Cat.count}" }
+                -> { "#{name}-#{AttractionType.count}" }
         ]
     end
     

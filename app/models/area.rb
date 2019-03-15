@@ -9,7 +9,7 @@ class Area < ApplicationRecord
     def slug_candidates
         [
             name,
-                -> { "#{name}-#{Cat.count}" }
+                -> { "#{name}-#{Area.count}" }
         ]
     end
     

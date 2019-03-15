@@ -9,7 +9,7 @@ class Attraction < ApplicationRecord
     def slug_candidates
         [
           name,
-          -> { "#{name}-#{Cat.count}" }
+          -> { "#{name}-#{Attraction.count}" }
         ]
       end
     
@@ -25,8 +25,7 @@ class Attraction < ApplicationRecord
         attraction_path(slug: slug)
     end
 
-    validates :name,    presence: true,
-                        length: { minimum: 5 }
+    validates :name,    presence: true
     validates :slug,    presence: true
 
     has_one_attached :logo
@@ -58,10 +57,18 @@ class Attraction < ApplicationRecord
 
     private
         def attribute_in_mph(attr)
-            return self[attr] * 2.23694
+            if (attr == :top_speed.to_s)
+                return self[attr] * 2.23694
+            else
+                raise ArgumentError.new("#{attr} attribute not supported for conversion to mph")
+            end
         end
 
         def attribute_in_ft(attr)
-            return self[attr] * 3.28084
+            if (attr == :length.to_s || attr == :height.to_s)
+                return self[attr] * 3.28084
+            else
+                raise ArgumentError.new("#{attr} attribute not supported for conversion to ft")
+            end
         end
 end

@@ -6,7 +6,4 @@ class SearchController < ApplicationController
         end
         render 'result'
     end
-
-    def create
-    end
 end

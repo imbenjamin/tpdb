@@ -9,7 +9,7 @@ class Manufacturer < ApplicationRecord
     def slug_candidates
         [
             name,
-                -> { "#{name}-#{Cat.count}" }
+                -> { "#{name}-#{Manufacturer.count}" }
         ]
     end
     

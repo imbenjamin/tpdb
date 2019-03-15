@@ -9,7 +9,7 @@ class Location < ApplicationRecord
     def slug_candidates
         [
             name,
-                -> { "#{name}-#{Cat.count}" }
+                -> { "#{name}-#{Location.count}" }
         ]
     end
     
@@ -50,15 +50,13 @@ class Location < ApplicationRecord
             obj.city = geo.city
             obj.state = geo.state
             obj.country = geo.country
-            obj.google_place_id = geo.place_id
+            if defined? geo.place_id
+                obj.google_place_id = geo.place_id
+            end
         end
     end
     after_validation :geocode, if: ->(obj){ obj.address.present? and obj.address_changed? }
     # after_validation :reverse_geocode, unless: ->(obj) { obj.address.present? }, if: ->(obj){ obj.latitude.present? and obj.latitude_changed? and obj.longitude.present? and obj.longitude_changed? }
-
-    def lookup_city_country()
-
-    end
 
     # JSON API response
     def as_json(options={})
