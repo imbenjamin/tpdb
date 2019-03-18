@@ -9,7 +9,6 @@ class LocationsController < ApplicationController
 
     def create
         @location = Location.new(location_params)
-
         if @location.save
             redirect_to @location
         else
@@ -18,27 +17,43 @@ class LocationsController < ApplicationController
     end
 
     def edit
-        @location = Location.find_by(slug: params[:slug])
+        begin
+            @location = Location.find_by!(slug: params[:slug])
+        rescue ActiveRecord::RecordNotFound
+            flash[:error] = "Location not found"
+            return not_found
+        end
     end
 
     def update
-        @location = Location.find_by(slug: params[:slug])
+        begin
+            @location = Location.find_by!(slug: params[:slug])
 
-        if @location.update(location_params)
-            redirect_to @location
-        else
-            render 'edit'
+            if @location.update(location_params)
+                redirect_to @location
+            else
+                render 'edit'
+            end
+        rescue ActiveRecord::RecordNotFound
+            flash[:error] = "Location not found"
+            return not_found
         end
     end
 
     def show
-        @location = Location.find_by(slug: params[:slug])
-        @attractions_without_area = Attraction.where(location: @location, area: nil)
+        begin
+            @location = Location.find_by!(slug: params[:slug])
+            @attractions_without_area = Attraction.where(location: @location, area: nil)
+        rescue ActiveRecord::RecordNotFound
+            flash[:error] = "Location not found"
+            return not_found
+        end
     end
 
     def destroy
-        @location = Location.find_by(slug: params[:slug])
-        @location.destroy
+        if @location = Location.find_by(slug: params[:slug])
+            @location.destroy
+        end
 
         redirect_to locations_path
     end
