@@ -2,7 +2,7 @@
     <%= @manufacturer.name %>
 <% end -%>
 <h1><%= @manufacturer.name %></h1>
-<p><%= link_to @manufacturer.website, @manufacturer.website, target: "_blank" %></p>
+<%if @manufacturer.website %><p><%= link_to @manufacturer.website, @manufacturer.website, target: "_blank" %></p><% end %>
 <% if @manufacturer.description.length > 0 %>
     <h4><%= t('generic.description') %></h4>
     <p><%= @manufacturer.description %></p>

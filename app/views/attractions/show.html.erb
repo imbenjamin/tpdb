@@ -3,6 +3,30 @@
 <% end -%>
 <div class="row">
     <div class="col">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <%
+                    def render_parents(node)
+                        if node.parent
+                            %>
+                            <li class="breadcrumb-item"><%= link_to node.parent.name, node.parent %></li>
+                            <%
+                            render_parents(node.parent)
+                        end
+                    end
+                    render_parents(@attraction.location)
+                %>
+                <li class="breadcrumb-item"><%= link_to @attraction.location.name, @attraction.location %></li>
+                <% if @attraction.area %>
+                    <li class="breadcrumb-item"><%= link_to @attraction.area.name, @attraction.area %></li>
+                <% end %>
+                <li class="breadcrumb-item active" aria-current="page"><%= @attraction.name %></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
         <h1 class="nolinebreak"><%= @attraction.name %></h1> <%= link_to edit_attraction_path(@attraction) do %><%= fa_icon "edit" %><% end %><span class="linebreaker"></span>
     </div>
 </div>
@@ -24,6 +48,9 @@
         <div class="card">
             <div class="card-body">
                 <ul class="list-unstyled">
+                    <% if @attraction.opening_date? %><li><p><strong><%= t('attractions.opening_date') %></strong>
+                        <%= @attraction.opening_date.strftime("%e %b %Y") %></p>
+                    <% end %>
                     <% if @attraction.top_speed? %><li><strong><%= t('attractions.top_speed') %></strong> 
                         <%= number_with_delimiter(@attraction.top_speed.round(1)) %><%= t('global.units.ms') %> 
                         <small>(<%= number_with_delimiter(@attraction.top_speed_in_mph.round(1)) %><%= t('global.units.mph') %>)</small></li>

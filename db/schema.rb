@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2019_03_11_150437) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["location_id"], name: "index_areas_on_location_id"
+    t.index ["slug"], name: "index_areas_on_slug"
   end
 
   create_table "attraction_types", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -53,6 +54,7 @@ ActiveRecord::Schema.define(version: 2019_03_11_150437) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_attraction_types_on_slug"
   end
 
   create_table "attractions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -76,6 +78,7 @@ ActiveRecord::Schema.define(version: 2019_03_11_150437) do
     t.index ["attraction_type_id"], name: "index_attractions_on_attraction_type_id"
     t.index ["location_id"], name: "index_attractions_on_location_id"
     t.index ["manufacturer_id"], name: "index_attractions_on_manufacturer_id"
+    t.index ["slug"], name: "index_attractions_on_slug"
   end
 
   create_table "locations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -93,6 +96,7 @@ ActiveRecord::Schema.define(version: 2019_03_11_150437) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["parent_id"], name: "index_locations_on_parent_id"
+    t.index ["slug"], name: "index_locations_on_slug"
   end
 
   create_table "manufacturers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -102,6 +106,7 @@ ActiveRecord::Schema.define(version: 2019_03_11_150437) do
     t.string "website"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_manufacturers_on_slug"
   end
 
   create_table "slugs", force: :cascade do |t|

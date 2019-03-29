@@ -1,6 +1,28 @@
 <% content_for :title do -%>
     <%= @location.name %>
 <% end -%>
+<% if @location.parent %>
+<div class="row">
+    <div class="col">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <%
+                    def render_parents(node)
+                        if node.parent
+                            %>
+                            <li class="breadcrumb-item"><%= link_to node.parent.name, node.parent %></li>
+                            <%
+                            render_parents(node.parent)
+                        end
+                    end
+                    render_parents(@location)
+                %>
+                <li class="breadcrumb-item active" aria-current="page"><%= @location.name %></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<% end %>
 <div class="row">
     <div class="col">
         <h1 class="nolinebreak"><%= @location.name %></h1>

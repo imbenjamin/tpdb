@@ -8,7 +8,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-7">
+    <div class="col-4">
         <h2>Attractions</h2>
         <% if @r_attractions.any? %>
             <ul class="list-unstyled">
@@ -20,12 +20,24 @@
             <p>No results</p>
         <% end %>
     </div>
-    <div class="col-5">
+    <div class="col-4">
         <h2>Locations</h2>
         <% if @r_locations.any? %>
             <ul class="list-unstyled">
                 <% @r_locations.each do |result| %>
                     <li><%= link_to result.name, result %></li>
+                <% end %>
+            </ul>
+        <% else %>
+            <p>No results</p>
+        <% end %>
+    </div>
+    <div class="col-4">
+        <h2>Areas</h2>
+        <% if @r_areas.any? %>
+            <ul class="list-unstyled">
+                <% @r_areas.each do |result| %>
+                    <li><%= link_to result.name, result %>, at <%= link_to result.location.name, result.location %></li>
                 <% end %>
             </ul>
         <% else %>

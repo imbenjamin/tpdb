@@ -3,6 +3,27 @@
 <% end -%>
 <div class="row">
     <div class="col">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <%
+                    def render_parents(node)
+                        if node.parent
+                            %>
+                            <li class="breadcrumb-item"><%= link_to node.parent.name, node.parent %></li>
+                            <%
+                            render_parents(node.parent)
+                        end
+                    end
+                    render_parents(@area.location)
+                %>
+                <li class="breadcrumb-item"><%= link_to @area.location.name, @area.location %></li>
+                <li class="breadcrumb-item active" aria-current="page"><%= @area.name %></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
         <h1 class="nolinebreak"><%= @area.name %></h1>
         <%= link_to edit_area_path(@area) do %><%= fa_icon "edit" %><% end %><span class="linebreaker"></span>
     </div>
@@ -10,6 +31,7 @@
 <div class="row">
     <div class="col-8">
         <p class="lead"><%= t('area.area_in') %> <%= link_to @area.location.name, @area.location %></p>
+        <p><%= @area.description %></p>
         <h4><%= t('area.attractions') %></h4>
         <ul class="list-unstyled">
             <% @area.attractions.each do |attraction| %>
