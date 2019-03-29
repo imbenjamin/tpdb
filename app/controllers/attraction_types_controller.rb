@@ -18,32 +18,48 @@ class AttractionTypesController < ApplicationController
     end
 
     def edit
-        @attraction_type = AttractionType.find_by(slug: params[:slug])
+        begin
+            @attraction_type = AttractionType.find_by!(slug: params[:slug])
+        rescue ActiveRecord::RecordNotFound
+            flash[:error] = "Attraction Type not found"
+            return not_found
+        end
     end
 
     def update
-        @attraction_type = AttractionType.find_by(slug: params[:slug])
+        begin
+            @attraction_type = AttractionType.find_by!(slug: params[:slug])
 
-        if @attraction_type.update(attraction_type_params)
-            redirect_to @attraction_type
-        else
-            render 'edit'
+            if @attraction_type.update(attraction_type_params)
+                redirect_to @attraction_type
+            else
+                render 'edit'
+            end
+        rescue ActiveRecord::RecordNotFound
+            flash[:error] = "Attraction Type not found"
+            return not_found
         end
     end
 
     def show
-        @attraction_type = AttractionType.find_by(slug: params[:slug])
+        begin
+            @attraction_type = AttractionType.find_by!(slug: params[:slug])
+        rescue ActiveRecord::RecordNotFound
+            flash[:error] = "Attraction Type not found"
+            return not_found
+        end
     end
 
     def destroy
-        @attraction_type = AttractionType.find_by(slug: params[:slug])
-        @attraction_type.destroy
+        if @attraction_type = AttractionType.find_by(slug: params[:slug])
+            @attraction_type.destroy
+        end
 
         redirect_to attraction_types_path
     end
 
     private
     def attraction_type_params
-        params.require(:attraction_type).permit(:name, :slug)
+        params.require(:attraction_type).permit(:name, :description, :slug)
     end
 end

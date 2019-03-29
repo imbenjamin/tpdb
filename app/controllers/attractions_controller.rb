@@ -74,7 +74,6 @@ class AttractionsController < ApplicationController
                 params[:location_slug] = @attraction.location.slug
                 flash[:notice] = "The Attraction given did not match the Location given, redirected to the correct Location"
             end
-
         rescue ActiveRecord::RecordNotFound
             flash[:error] = "Attraction not found"
             return not_found

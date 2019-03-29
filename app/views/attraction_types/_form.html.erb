@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col">
+        <%= form_with model: @attraction_type, local: true do |form| %>
+            <% if @attraction_type.errors.any? %>
+                <div id="error_explanation">
+                    <h2>
+                        <%= pluralize(@attraction_type.errors.count, "error") %> prohibited
+                        this attraction type from being saved:
+                    </h2>
+                    <ul>
+                        <% @attraction_type.errors.full_messages.each do |msg| %>
+                            <li><%= msg %></li>
+                        <% end %>
+                    </ul>
+                </div>
+            <% end %>
+            <div class="row">
+                <div class="col-8">
+                    <div class="form-group">
+                        <%= form.label :name %>
+                        <%= form.text_field :name, size: 60, class: 'form-control form-control-lg' %>
+                    </div>
+                    <div class="form-group">
+                        <%= form.label :description %>
+                        <%= form.text_area :description, size: "60x5", class: 'form-control' %>
+                    </div>
+                    <div class="form-group">
+                        <%= form.submit nil, {class: "btn btn-primary"} %>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>
