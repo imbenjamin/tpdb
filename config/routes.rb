@@ -3,10 +3,10 @@ Rails.application.routes.draw do
     
     scope "(/:locale)", locale: /#{I18n.available_locales.join("|")}/, defaults: {locale: "en"} do
         resources :locations, param: :slug do
-            resources :attractions, param: :slug, only: [:index, :show]
+            resources :attractions, param: :slug, only: [:show]
             resources :areas, param: :slug, only: [:index, :show]
         end
-        resources :attractions, param: :slug, only: [:edit, :update, :destroy, :create, :new]
+        resources :attractions, param: :slug, only: [:index, :edit, :update, :destroy, :create, :new]
         resources :attraction_types, param: :slug
         resources :areas, param: :slug, only: [:edit, :update, :destroy, :create, :new]
         resources :manufacturers, param: :slug

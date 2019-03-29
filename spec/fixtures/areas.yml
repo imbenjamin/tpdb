@@ -9,3 +9,8 @@ tomorrowland:
   name: 'Tomorrowland' 
   location: disneyland
   slug: 'tomorrowland'
+
+theland:
+  name: 'The Land'
+  location: epcot
+  slug: 'the-land'

@@ -42,6 +42,7 @@ RSpec.describe LocationsController, type: :controller do
 
         it 'should render a 404 for an invalid Location' do
             expect{get :edit, :params => {:slug => 'abcd1234'}}.to raise_error(ActionController::RoutingError)
+            expect(flash[:error]).to be_present
         end
     end
 
@@ -86,6 +87,7 @@ RSpec.describe LocationsController, type: :controller do
 
         it 'should not render an invalid Location' do
             expect{get :show, :params => {:slug => 'abcd1234'}}.to raise_error(ActionController::RoutingError)
+            expect(flash[:error]).to be_present
         end
     end
 
