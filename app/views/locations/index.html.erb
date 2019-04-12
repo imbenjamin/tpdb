@@ -2,9 +2,11 @@
     <%= t('global.types.location').pluralize(2) %>
 <% end -%>
 <h1><%= t('global.types.location').pluralize(2) %></h1>
-<p>
-    <%= link_to((fa_icon 'plus')+" #{t('generic.new')}", new_location_path) %>
-</p>
+<% if current_user.try(:admin) %>
+    <p>
+        <%= link_to((fa_icon 'plus')+" #{t('generic.new')}", new_location_path) %>
+    </p>
+<% end %>
 <table class="table table-hover">
     <thead>
         <tr>

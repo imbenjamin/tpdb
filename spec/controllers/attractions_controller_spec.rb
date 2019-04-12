@@ -12,6 +12,11 @@ RSpec.describe AttractionsController, type: :controller do
     describe 'GET new' do
         fixtures :locations
         fixtures :areas
+        fixtures :users
+
+        before(:each) do
+            sign_in users(:admin)
+        end
 
         it 'should create a new Attraction without predefined Location or Area' do
             request = get :new
@@ -96,6 +101,11 @@ RSpec.describe AttractionsController, type: :controller do
         fixtures :locations
         fixtures :attraction_types
         fixtures :manufacturers
+        fixtures :users
+
+        before(:each) do
+            sign_in users(:admin)
+        end
 
         it 'should save a new Attraction with valid params' do
             request = post :create, :params => {:attraction => { :name => 'my name', :location_id => locations(:disneyland).id, :attraction_type_id =>  attraction_types(:rollercoaster).id, :manufacturer_id => manufacturers(:manuf1).id}}
@@ -110,6 +120,11 @@ RSpec.describe AttractionsController, type: :controller do
 
     describe 'GET edit' do
         fixtures :attractions
+        fixtures :users
+
+        before(:each) do
+            sign_in users(:admin)
+        end
 
         it 'should render a valid Attraction' do
             attraction = attractions(:spacemountain)
@@ -129,6 +144,11 @@ RSpec.describe AttractionsController, type: :controller do
         fixtures :locations
         fixtures :manufacturers
         fixtures :attraction_types
+        fixtures :users
+
+        before(:each) do
+            sign_in users(:admin)
+        end
 
         it 'should update a valid Attraction with valid params' do
             attraction = attractions(:spacemountain)
@@ -207,6 +227,11 @@ RSpec.describe AttractionsController, type: :controller do
 
     describe 'DELETE destroy' do
         fixtures :attractions
+        fixtures :users
+
+        before(:each) do
+            sign_in users(:admin)
+        end
 
         it 'should successfully delete a valid Attraction' do
             attraction = attractions(:spacemountain)

@@ -26,7 +26,7 @@
 <div class="row">
     <div class="col">
         <h1 class="nolinebreak"><%= @location.name %></h1>
-         <%= link_to edit_location_path(@location) do %><%= fa_icon "edit" %><% end %><span class="linebreaker"></span>
+         <%= link_to edit_location_path(@location) do %><% if current_user.try(:admin) %><%= fa_icon "edit" %><% end %><% end %><span class="linebreaker"></span>
     </div>
 </div>
 <div class="row">
@@ -40,19 +40,27 @@
             <% end %>
             <% if @location.areas.count == 0 %>
                 <h2>Attractions</h2>
-                <%= link_to((fa_icon 'plus')+' New', new_attraction_path) %><br />
+                <% if current_user.try(:admin) %>
+                    <%= link_to((fa_icon 'plus')+' New', new_attraction_path) %><br />
+                <% end %>
                 <ul class="list-unstyled">
-                    <% @location.attractions.each do |attraction| %>
-                        <li><strong><%= link_to attraction.name, location_attraction_path(location_slug: @location.slug, slug: attraction.slug) %></strong>&emsp;<%= attraction.description %></li>
+                    <% if @location.attractions.any? %>
+                        <% @location.attractions.each do |attraction| %>
+                            <li><strong><%= link_to attraction.name, location_attraction_path(location_slug: @location.slug, slug: attraction.slug) %></strong>&emsp;<%= attraction.description %></li>
+                        <% end %>
+                    <% else %>
+                        No attractions are listed for this location.
                     <% end %>
                 </ul>
             <% else %>
                 <h2>Areas</h2>
-                <%= link_to((fa_icon 'plus')+' New Area', new_area_path(location: @location.id)) %> &emsp; <%= link_to((fa_icon 'plus')+' New Attraction', new_attraction_path(location: @location.id)) %><br />
+                <% if current_user.try(:admin) %>
+                    <%= link_to((fa_icon 'plus')+' New Area', new_area_path(location: @location.id)) %> &emsp; <%= link_to((fa_icon 'plus')+' New Attraction', new_attraction_path(location: @location.id)) %><br />
+                <% end %>
                 <% @location.areas.each do |area| %>
                     <h3><%= link_to area.name, area %></h3>
                 </span>
-                <% if area.attractions.count == 0 %>
+                <% if !area.attractions.any? %>
                     <p>No attractions are listed for this area.</p>
                 <% end %>
                 <ul class="list-unstyled">
@@ -60,7 +68,9 @@
                         <li><strong><%= link_to attraction.name, location_attraction_path(location_slug: @location.slug, slug: attraction.slug) %></strong> - <%= attraction.attraction_type.name %></li>
                     <% end %>
                 </ul>
-                <%= link_to((fa_icon 'plus')+' Add a new Attraction to ' + area.name, new_attraction_path(location: @location.id, area: area.id)) %><br />
+                <% if current_user.try(:admin) %>
+                    <%= link_to((fa_icon 'plus')+' Add a new Attraction to ' + area.name, new_attraction_path(location: @location.id, area: area.id)) %>
+                <% end %>
             <% end %>
             <% if @attractions_without_area.count > 0 %>
                 <h3>Attractions outside an area</h3>

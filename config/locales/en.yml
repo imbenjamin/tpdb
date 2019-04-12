@@ -34,6 +34,19 @@ en:
       submit:
         create: "Create a new %{model}"
         update: "Update %{model}"
+    auth:
+      sign_in: "Sign in"
+      sign_out: "Sign out"
+      account: "Account"
+      register: "Register"
+      email_address: "Email Address"
+      password: "Password"
+      password_reset: "Password Reset"
+      forgot_your_password: "Forgot your Password?"
+      send_password_reset_instructions: "Send me password reset instructions"
+      didnt_receive_confirmation_instructions: "Didn't receive confirmation instructions?"
+      didnt_receive_unlock_instructions: "Didn't receive unlock instructions?"
+      sign_in_with: "Sign in with"
     global:
         site_name:
             short: "TPDB"

@@ -50,6 +50,11 @@ RSpec.describe AreasController, type: :controller do
 
     describe 'GET new' do
         fixtures :locations
+        fixtures :users
+
+        before(:each) do
+            sign_in users(:admin)
+        end
 
         it 'should create a new Area if no parameters are predefined' do
             request = get :new
@@ -77,6 +82,11 @@ RSpec.describe AreasController, type: :controller do
 
     describe 'GET edit' do
         fixtures :areas
+        fixtures :users
+
+        before(:each) do
+            sign_in users(:admin)
+        end
 
         it 'should render a valid Area' do
             area = areas(:tomorrowland)
@@ -94,6 +104,11 @@ RSpec.describe AreasController, type: :controller do
     describe 'PATCH/PUT update' do
         fixtures :areas
         fixtures :locations
+        fixtures :users
+
+        before(:each) do
+            sign_in users(:admin)
+        end
 
         it 'should update a valid Area with valid params' do
             area = areas(:tomorrowland)
@@ -123,6 +138,11 @@ RSpec.describe AreasController, type: :controller do
 
     describe 'DELETE destroy' do
         fixtures :areas
+        fixtures :users
+
+        before(:each) do
+            sign_in users(:admin)
+        end
 
         it 'should successfully delete a valid Area' do
             area = areas(:tomorrowland)

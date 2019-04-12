@@ -25,7 +25,7 @@
 <div class="row">
     <div class="col">
         <h1 class="nolinebreak"><%= @area.name %></h1>
-        <%= link_to edit_area_path(@area) do %><%= fa_icon "edit" %><% end %><span class="linebreaker"></span>
+        <% if current_user.try(:admin) %><%= link_to edit_area_path(@area) do %><%= fa_icon "edit" %><% end %><% end %><span class="linebreaker"></span>
     </div>
 </div>
 <div class="row">

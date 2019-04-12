@@ -27,7 +27,7 @@
 </div>
 <div class="row">
     <div class="col">
-        <h1 class="nolinebreak"><%= @attraction.name %></h1> <%= link_to edit_attraction_path(@attraction) do %><%= fa_icon "edit" %><% end %><span class="linebreaker"></span>
+        <h1 class="nolinebreak"><%= @attraction.name %></h1><% if current_user.try(:admin) %><%= link_to edit_attraction_path(@attraction) do %><%= fa_icon "edit" %><% end %><% end %><span class="linebreaker"></span>
     </div>
 </div>
 <div class="row">

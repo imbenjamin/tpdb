@@ -9,25 +9,29 @@
             <li class="nav-item"><%= link_to t('global.types.attraction_type').pluralize(2), attraction_types_path, class: 'nav-link' %></li>
             <li class="nav-item"><%= link_to t('global.types.manufacturer').pluralize(2), manufacturers_path, class: 'nav-link' %></li>
         </ul>
-        <%
-=begin%>
- <form class="form-inline">
+        <% if user_signed_in? %>
+            <span class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navAccountDropdownLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= current_user.email %>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navAccountDropdownLink">
+                <%= link_to (fa_icon 'sign-out')+" "+t('auth.sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
+            </div>
+            </span>
+        <% else %>
+            <span class="nav-item">
+                <%= link_to (fa_icon 'sign-in')+" "+t('auth.sign_in'), new_user_session_path, class: 'nav-link' %>
+            </span>
+        <% end %>
+        <%= form_tag search_path, method: :get, enforce_utf8: false, class: 'form-inline' do %>
             <div class="input-group">
-                <input type="search" class="form-control" placeholder="Search..." aria-label="Search Attractions and Location" aria-describedby="button-search">
+                <%= search_field_tag :q, nil, {class: 'form-control', placeholder: 'Search...', 'aria-label': 'Search'} %>
                 <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="submit" id="button-search"><%= fa_icon 'search' %></button>
+                    <%= button_tag type: 'Submit', name: nil, class: 'btn btn-outline-secondary' do %><%= fa_icon 'search' %><% end %>
                 </div>
             </div>
-        </form> 
-<%
-=end%>
-    <%= form_tag search_path, method: :get, enforce_utf8: false, class: 'form-inline' do %>
-        <div class="input-group">
-            <%= search_field_tag :q, nil, {class: 'form-control', placeholder: 'Search...', 'aria-label': 'Search'} %>
-            <div class="input-group-append">
-                <%= button_tag type: 'Submit', name: nil, class: 'btn btn-outline-secondary' do %><%= fa_icon 'search' %><% end %>
-            </div>
-        </div>
-    <% end %>
+        <% end %>
     </div>
 </nav>
+<% if notice %><p class="alert alert-primary" role="alert"><%= notice %></p><% end %>
+<% if alert %><p class="alert alert-danger" role="alert"><%= alert %></p><% end %>

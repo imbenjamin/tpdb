@@ -5,9 +5,15 @@
     </head>
     <body id="<%= params[:controller] %>" data-action="<%= params[:action] %>">
         <div class="container">
-            <%= render 'layouts/header' %>
-            <%= yield %>
-            <%= render 'layouts/footer' %>
+            <header>
+                <%= render 'layouts/header' %>
+            </header>
+            <main>
+                <%= yield %>
+            </main>
+            <footer>
+                <%= render 'layouts/footer' %>
+            </footer>
         </div>
     </body>
 </html>

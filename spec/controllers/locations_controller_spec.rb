@@ -12,6 +12,12 @@ RSpec.describe LocationsController, type: :controller do
     end
 
     describe 'GET new' do
+        fixtures :users
+
+        before(:each) do
+            sign_in users(:admin)
+        end
+
         it 'should create a new Location' do
             request = get :new
             expect(request).to render_template(:new)
@@ -20,6 +26,12 @@ RSpec.describe LocationsController, type: :controller do
     end
 
     describe 'POST create' do
+        fixtures :users
+
+        before(:each) do
+            sign_in users(:admin)
+        end
+
         it 'should save a new Location with valid params' do
             request = post :create, :params => {:location => { :name => 'my name' }}
             expect(assigns(:location)).to_not be_nil
@@ -33,6 +45,11 @@ RSpec.describe LocationsController, type: :controller do
 
     describe 'GET edit' do
         fixtures :locations
+        fixtures :users
+
+        before(:each) do
+            sign_in users(:admin)
+        end
 
         it 'should render template for a valid Location' do
             request = get :edit, :params => {:slug => locations(:disneyland).slug}
@@ -48,6 +65,11 @@ RSpec.describe LocationsController, type: :controller do
 
     describe 'PATCH/PUT update' do
         fixtures :locations
+        fixtures :users
+
+        before(:each) do
+            sign_in users(:admin)
+        end
 
         it 'should update a valid Location with valid params' do
             location = locations(:disneyland)
@@ -93,6 +115,11 @@ RSpec.describe LocationsController, type: :controller do
 
     describe 'DELETE destroy' do
         fixtures :locations
+        fixtures :users
+
+        before(:each) do
+            sign_in users(:admin)
+        end
 
         it 'should successfully delete a valid Location' do
             location = locations(:disneyland)

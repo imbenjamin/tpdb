@@ -1,0 +1,9 @@
+admin:
+  email: 'admin@tpdb.com'
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'test1234') %>
+  admin: true
+
+contributor:
+  email: 'contributor@gmail.com'
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'test1234') %>
+  admin: false

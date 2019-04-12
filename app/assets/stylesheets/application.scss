@@ -18,6 +18,12 @@
 @import "bootstrap";
 @import "font-awesome";
 
+footer {
+    margin-top: 3rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+    padding: 0.5rem 0px 0px 0px;
+}
+
 .row {
     padding-bottom: 1rem;
 }

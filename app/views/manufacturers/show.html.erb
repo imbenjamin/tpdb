@@ -1,7 +1,8 @@
 <% content_for :title do -%>
     <%= @manufacturer.name %>
 <% end -%>
-<h1><%= @manufacturer.name %></h1>
+<h1 class="nolinebreak"><%= @manufacturer.name %></h1>
+         <%= link_to edit_manufacturer_path(@manufacturer) do %><% if current_user.try(:admin) %><%= fa_icon "edit" %><% end %><% end %><span class="linebreaker"></span>
 <%if @manufacturer.website %><p><%= link_to @manufacturer.website, @manufacturer.website, target: "_blank" %></p><% end %>
 <% if @manufacturer.description.length > 0 %>
     <h4><%= t('generic.description') %></h4>

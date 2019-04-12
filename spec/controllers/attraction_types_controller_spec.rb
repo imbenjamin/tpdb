@@ -10,6 +10,12 @@ RSpec.describe AttractionTypesController, type: :controller do
     end
 
     describe 'GET new' do
+        fixtures :users
+
+        before(:each) do
+            sign_in users(:admin)
+        end
+
         it 'should create a new Attraction Type' do
             request = get :new
             expect(request).to render_template(:new)
@@ -18,6 +24,12 @@ RSpec.describe AttractionTypesController, type: :controller do
     end
 
     describe 'POST create' do
+        fixtures :users
+
+        before(:each) do
+            sign_in users(:admin)
+        end
+
         it 'should save a new Attraction Type with valid params' do
             request = post :create, :params => {:attraction_type => { :name => 'my name' }}
             expect(assigns(:attraction_type)).to_not be_nil
@@ -31,6 +43,11 @@ RSpec.describe AttractionTypesController, type: :controller do
 
     describe 'GET edit' do
         fixtures :attraction_types
+        fixtures :users
+
+        before(:each) do
+            sign_in users(:admin)
+        end
 
         it 'should render a valid Attraction Type' do
             attraction_type = attraction_types(:rollercoaster)
@@ -47,6 +64,11 @@ RSpec.describe AttractionTypesController, type: :controller do
 
     describe 'PATCH/PUT update' do
         fixtures :attraction_types
+        fixtures :users
+
+        before(:each) do
+            sign_in users(:admin)
+        end
 
         it 'should update a valid Attraction Type with valid params' do
             attraction_type = attraction_types(:rollercoaster)
@@ -92,6 +114,11 @@ RSpec.describe AttractionTypesController, type: :controller do
 
     describe 'DELETE destroy' do
         fixtures :attraction_types
+        fixtures :users
+
+        before(:each) do
+            sign_in users(:admin)
+        end
 
         it 'should successfully delete a valid Attraction Type' do
             attraction_type = attraction_types(:rollercoaster)

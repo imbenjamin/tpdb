@@ -2,9 +2,11 @@
     <%= t('global.types.manufacturer').pluralize(2) %>
 <% end -%>
 <h1><%= t('global.types.manufacturer').pluralize(2) %></h1>
-<p>
-    <%= link_to((fa_icon 'plus')+' '+t('generic.new'), new_manufacturer_path) %>
-</p>
+<% if current_user.try(:admin) %>
+    <p>
+        <%= link_to((fa_icon 'plus')+' '+t('generic.new'), new_manufacturer_path) %>
+    </p>
+<% end %>
 <p>
     <ul class="list-unstyled">
         <% @manufacturers.each do |manufacturer| %>

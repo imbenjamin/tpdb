@@ -1,7 +1,8 @@
 <% content_for :title do -%>
     <%= @attraction_type.name.pluralize(2) %>
 <% end -%>
-<h1><%= @attraction_type.name.pluralize(2) %></h1>
+<h1 class="nolinebreak"><%= @attraction_type.name.pluralize(2) %></h1>
+         <%= link_to edit_attraction_type_path(@attraction_type) do %><% if current_user.try(:admin) %><%= fa_icon "edit" %><% end %><% end %><span class="linebreaker"></span>
 <h4><%= t('global.types.attraction').pluralize(2) %></h4>
 <p>
     <ul class="list-unstyled">

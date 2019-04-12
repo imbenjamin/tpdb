@@ -6,6 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+admin = User.create({email: 'admin@tpdb.com', password: 'test1234', password_confirmation: 'test1234', admin: true})
+contributor = User.create({email: 'contributor@gmail.com', password: 'test1234', password_confirmation: 'test1234'})
+
 type_rollercoaster = AttractionType.create({name: 'Roller Coaster', description: 'A roller coaster is a type of amusement ride that employs a form of elevated railroad track designed with tight turns, steep slopes, and sometimes inversions. People ride along the track in open cars, and the rides are often found in amusement parks and theme parks around the world.'})
 type_darkride = AttractionType.create({name: 'Dark Ride', description: 'A dark ride or ghost train is an indoor amusement ride on which passengers aboard guided vehicles travel through specially lit scenes that typically contain animation, sound, music and special effects. Appearing as early as the 19th century, exhibits such as tunnels of love, scary themes and interactive stories have been the subject of rides under the original definition.'})
 type_flatride = AttractionType.create({name: 'Flat Ride', description: 'Flat rides are usually considered to be those that move their passengers in a plane generally parallel to the ground, such as rides that spin around a vertical axis, like carousels and twists, and ground level rides such as bumper cars and The Whip.'})
