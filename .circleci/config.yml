@@ -2,16 +2,16 @@ version: 2
 jobs:
     build:
         docker:
-      - image: circleci/ruby:2.5.3-node-browsers
-        environment:
-          PGHOST: localhost
-          PGUSER: tpdb_user
-          RAILS_ENV: test
-      - image: postgres:9.5
-        environment:
-          POSTGRES_USER: tpdb_user
-          POSTGRES_DB: tpdb_ci
-          POSTGRES_PASSWORD: ""
+          - image: circleci/ruby:2.5.3-node-browsers
+            environment:
+              PGHOST: localhost
+              PGUSER: tpdb_user
+              RAILS_ENV: test
+          - image: postgres:9.5
+            environment:
+              POSTGRES_USER: tpdb_user
+              POSTGRES_DB: tpdb_ci
+              POSTGRES_PASSWORD: ""
     steps:
         - checkout
 
