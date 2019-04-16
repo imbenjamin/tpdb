@@ -27,6 +27,7 @@ test:
 
 production:
   <<: *default
-  database: mgccseco_tpdb_prod
-  username: mgccseco_tpdb_user
-  password: 9K3[0@0;)3$8
+  url: <%= ENV['DATABASE_URL'] %>
+  # database: mgccseco_tpdb_prod
+  # username: mgccseco_tpdb_user
+  # password: 9K3[0@0;)3$8
