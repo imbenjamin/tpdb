@@ -27,6 +27,6 @@ test:
 
 production:
   <<: *default
-  database: tpdb_prod
-  username: username
-  password: password
+  database: mgccseco_tpdb_prod
+  username: mgccseco_tpdb_user
+  password: 9K3[0@0;)3$8

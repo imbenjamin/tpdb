@@ -94,4 +94,9 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  
+  # ImageMagick resources
+  ENV['MAGICK_MEMORY_LIMIT'] = '128MiB'
+  ENV['MAGICK_MAP_LIMIT'] = '64MiB'
+  ENV['MAGICK_TIME_LIMIT'] = '30'
 end
