@@ -10,6 +10,7 @@ jobs:
           PGDB: tpdb_ci
           PGPW: ""
           RAILS_ENV: test
+          RACK_ENV: test
       - image: postgres:9.5
         environment:
           POSTGRES_USER: tpdb_user
