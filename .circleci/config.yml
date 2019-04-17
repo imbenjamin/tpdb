@@ -1,44 +1,44 @@
 ---
 version: 2
 jobs:
-    build:
-        docker:
-          - image: circleci/ruby:2.5.3-node-browsers
-            environment:
-              PGHOST: localhost
-              PGUSER: tpdb_user
-              RAILS_ENV: test
-          - image: postgres:9.5
-            environment:
-              POSTGRES_USER: tpdb_user
-              POSTGRES_DB: tpdb_ci
-              POSTGRES_PASSWORD: ""
+  build:
+    docker:
+      - image: circleci/ruby:2.5.3-node-browsers
+        environment:
+          PGHOST: localhost
+          PGUSER: tpdb_user
+          RAILS_ENV: test
+      - image: postgres:9.5
+        environment:
+          POSTGRES_USER: tpdb_user
+          POSTGRES_DB: tpdb_ci
+          POSTGRES_PASSWORD: ""
     steps:
-        - checkout
+      - checkout
 
-        # Restore Cached Dependencies
-        - type: cache-restore
-          name: Restore bundle cache
-          key: tpdb-{{ checksum "Gemfile.lock" }}
+      # Restore Cached Dependencies
+      - type: cache-restore
+        name: Restore bundle cache
+        key: tpdb-{{ checksum "Gemfile.lock" }}
 
-        # Bundle install dependencies
-        - run: bundle install --path vendor/bundle
+      # Bundle install dependencies
+      - run: bundle install --path vendor/bundle
 
-        # Cache Dependencies
-        - type: cache-save
-          name: Store bundle cache
-          key: tpdb-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
+      # Cache Dependencies
+      - type: cache-save
+        name: Store bundle cache
+        key: tpdb-{{ checksum "Gemfile.lock" }}
+        paths:
+          - vendor/bundle
 
-        # Wait for DB
-        - run: dockerize -wait tcp://localhost:5432 -timeout 1m
+      # Wait for DB
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
 
-        # Setup the environment
-        - run: cp .sample.env .env
+      # Setup the environment
+      - run: cp .sample.env .env
 
-        # Setup the database
-        - run: bundle exec rake db:setup
+      # Setup the database
+      - run: bundle exec rake db:setup
 
-        # Run the tests
-        - run: bundle exec rake spec
+      # Run the tests
+      - run: bundle exec rake spec
