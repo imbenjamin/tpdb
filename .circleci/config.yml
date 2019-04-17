@@ -7,6 +7,8 @@ jobs:
         environment:
           PGHOST: localhost
           PGUSER: tpdb_user
+          PGDB: tpdb_ci
+          PGPW: ""
           RAILS_ENV: test
       - image: postgres:9.5
         environment:
@@ -35,7 +37,7 @@ jobs:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
 
       # Setup the environment
-      - run: cp .sample.env .env
+      # - run: cp .sample.env .env
 
       # Setup the database
       - run: bundle exec rake db:setup
