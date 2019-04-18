@@ -76,3 +76,4 @@ gem 'font-awesome-rails'
 gem 'image_processing'
 gem 'sluggi'
 gem 'ransack'
+gem "google-cloud-storage", "~> 1.8", require: false
