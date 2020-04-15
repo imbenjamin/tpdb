@@ -1,5 +1,5 @@
 ---
-version: 2
+version: 3
 jobs:
   build:
     docker:
@@ -8,14 +8,14 @@ jobs:
           PGHOST: localhost
           PGUSER: tpdb_user
           PGDB: tpdb_ci
-          PGPW: ""
+          PGPW: "tpdb1234!"
           RAILS_ENV: test
           RACK_ENV: test
       - image: postgres:9.5
         environment:
           POSTGRES_USER: tpdb_user
           POSTGRES_DB: tpdb_ci
-          POSTGRES_PASSWORD: ""
+          POSTGRES_PASSWORD: "tpdb1234!"
     steps:
       - checkout
 
