@@ -1,7 +1,8 @@
 ---
-version: 4
+version: 2.1
 jobs:
   build:
+    working_directory: ~/tpdb
     docker:
       - image: circleci/ruby:2.5.3-node-browsers
         environment:
@@ -24,37 +25,29 @@ jobs:
           name: Restore bundle cache
           key: tpdb-{{ checksum "Gemfile.lock" }}
 
-      # Bundle install dependencies
       - run:
           name: Bundle Install
-          command: bundle check --path vendor/bundle || bundle install --deployment
+          command: bundle check --path vendor/bundle || bundle install --deployment --path vendor/bundle
 
-      # Cache Dependencies
       - save_cache:
           name: Store bundle cache
           key: tpdb-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 
-      # Wait for DB
       - run: 
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
-      # Setup the database
       - run: 
           name: Setup DB
           command: bundle exec rake db:setup
 
-      # Run the tests
-      - run: 
-          name: Make rspec directory
-          command: mkdir ~/rspec
       - run: 
           name: Run tests
           command: bundle exec rspec --format progress 
                                      --format RspecJunitFormatter 
-                                     -o ~/rspec/rspec.xml
+                                     -o rspec.xml
 
       - store_test_results:
           path: ~/rspec
