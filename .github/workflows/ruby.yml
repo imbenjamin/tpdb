@@ -10,24 +10,28 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    
+    services:
+      db:
+        image: postgres:9.5
+        ports: ['5432:5432']
+        env:
+          POSTGRES_USER: tpdb_user
+          POSTGRES_DB: tpdb_ci
+          POSTGRES_PASSWORD: tpdb1234
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        
 
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby 2.5
-      uses: actions/setup-ruby@v1
+      uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.5
-    - name: Setup PostgreSQL
-      uses: Harmon758/postgresql-action@v1.0.0
-      with:
-        # Version of PostgreSQL to use
-        postgresql version: 9.5 # optional, default is latest
-        # POSTGRES_DB - name for the default database that is created
-        postgresql db: tpdb_ci # optional, default is 
-        # POSTGRES_USER - create the specified user with superuser power
-        postgresql user: tpdb_user # optional, default is 
-        # POSTGRES_PASSWORD - superuser password
-        postgresql password: tpdb1234 # optional, default is 
+        ruby-version: 2.5.3
     - name: Build and test with Rake
       env:
         PGHOST: localhost
