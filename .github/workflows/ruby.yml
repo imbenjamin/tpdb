@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-
+    name: Build and Test
     runs-on: ubuntu-latest
     
     services:
@@ -55,4 +55,15 @@ jobs:
     - name: Set up DB
       run: bundle exec rake db:setup
     - name: Run rspec tests
-      run: bundle exec rspec
+      run: |
+        mkdir rspec
+        bundle exec rspec --format progress --format RspecJunitFormatter -o rspec/rspec.xml
+    - name: Junit Report to Annotations
+      uses: ashley-taylor/junit-report-annotations-action@v1.0
+      with:
+        # github token
+        access-token: ${{ secrets.GITHUB_TOKEN }}
+        # glob to junit xml files
+        path: rspec # default is target/surefire-reports/*.xml
+        # include summary annotation
+        includeSummary: true # default is true
