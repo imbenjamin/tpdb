@@ -63,7 +63,6 @@ jobs:
       with:
         # github token
         access-token: ${{ secrets.GITHUB_TOKEN }}
-        # glob to junit xml files
-        path: rspec # default is target/surefire-reports/*.xml
-        # include summary annotation
-        includeSummary: true # default is true
+        path: rspec/*.xml
+        includeSummary: true
+        testSrcPath: test/
