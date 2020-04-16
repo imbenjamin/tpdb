@@ -1,5 +1,5 @@
 ---
-version: 2.1
+version: 2
 jobs:
   build:
     working_directory: ~/tpdb
@@ -20,7 +20,6 @@ jobs:
     steps:
       - checkout
 
-      # Restore Cached Dependencies
       - restore_cache:
           name: Restore bundle cache
           key: tpdb-{{ checksum "Gemfile.lock" }}
@@ -43,6 +42,9 @@ jobs:
           name: Setup DB
           command: bundle exec rake db:setup
 
+  test:
+    working_directory: ~/tpdb
+    steps:
       - run: 
           name: Run tests
           command: bundle exec rspec --format progress 
@@ -51,4 +53,12 @@ jobs:
 
       - store_test_results:
           path: ~/rspec
-        
+          
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
