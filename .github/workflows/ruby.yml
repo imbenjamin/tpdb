@@ -1,0 +1,43 @@
+name: Ruby
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby 2.6
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6.x
+    - name: Setup PostgreSQL
+      uses: Harmon758/postgresql-action@v1.0.0
+      with:
+        # Version of PostgreSQL to use
+        postgresql version: 9.5 # optional, default is latest
+        # POSTGRES_DB - name for the default database that is created
+        postgresql db: tpdb_ci # optional, default is 
+        # POSTGRES_USER - create the specified user with superuser power
+        postgresql user: tpdb_user # optional, default is 
+        # POSTGRES_PASSWORD - superuser password
+        postgresql password: tpdb1234 # optional, default is 
+    - name: Build and test with Rake
+      env:
+        PGHOST: localhost
+        PGUSER: tpdb_user
+        PGDB: tpdb_ci
+        PGPW: tpdb1234
+        RAILS_ENV: test
+        RACK_ENV: test
+      run: |
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+        bundle exec rake db:setup
+        bundle exec rspec
