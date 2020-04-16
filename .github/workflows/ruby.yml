@@ -25,23 +25,34 @@ jobs:
           --health-timeout 5s
           --health-retries 5
         
+    env:
+      PGHOST: localhost
+      PGUSER: tpdb_user
+      PGDB: tpdb_ci
+      PGPW: tpdb1234
+      RAILS_ENV: test
+      RACK_ENV: test
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Ruby 2.5
+    - name: Set up Ruby 2.5.3
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.5.3
-    - name: Build and test with Rake
-      env:
-        PGHOST: localhost
-        PGUSER: tpdb_user
-        PGDB: tpdb_ci
-        PGPW: tpdb1234
-        RAILS_ENV: test
-        RACK_ENV: test
+    - name: Install Bundler
       run: |
         gem install bundler:1.17.3
-        bundle install --jobs 4 --retry 3
-        bundle exec rake db:setup
-        bundle exec rspec
+    - uses: actions/cache@v1
+      with:
+        path: vendor/bundle
+        key: bundle-use-ruby-${{ matrix.os }}-${{ matrix.ruby }}-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          bundle-use-ruby-${{ matrix.os }}-${{ matrix.ruby }}-
+    - name: bundle install
+      run: |
+        bundle config path vendor/bundle
+        bundle install --jobs 4 --retry 3 --deployment
+    - name: Set up DB
+      run: bundle exec rake db:setup
+    - name: Run rspec tests
+      run: bundle exec rspec
