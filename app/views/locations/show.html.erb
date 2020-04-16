@@ -95,7 +95,7 @@
                         height: "250",
                         frameborder: "0",
                         style: "border:0", 
-                        src: "https://www.google.com/maps/embed/v1/place?key=AIzaSyClmFbKbkCdvBxhWFgf5X4SaCqc5IgYKhM&zoom=7&q=#{@location.address}&center=#{@location.latitude},#{@location.longitude}",
+                        src: "https://www.google.com/maps/embed/v1/place?key=#{ENV['GMAPS_EMBED_KEY']}&zoom=7&q=#{@location.address}&center=#{@location.latitude},#{@location.longitude}",
                         allowfullscreen: true,
                         alt: "#{@location.name} on the map"
                     )
