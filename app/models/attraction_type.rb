@@ -28,5 +28,5 @@ class AttractionType < ApplicationRecord
     validates :name,    presence: true
     validates :slug,    presence: true
 
-    has_many :attractions
+    has_many :attractions, dependent: :nullify
 end

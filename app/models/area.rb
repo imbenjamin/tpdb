@@ -31,5 +31,5 @@ class Area < ApplicationRecord
     has_one_attached :logo
 
     belongs_to :location
-    has_many :attractions
+    has_many :attractions, dependent: :nullify
 end
