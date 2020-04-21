@@ -13,7 +13,7 @@ default: &default
 development:
   <<: *default
   database: tpdb_dev
-  username: postgres
+  username: tpdb_user
   password: tpdb
 
 # Warning: The database defined as "test" will be erased and
@@ -22,7 +22,7 @@ development:
 test:
   <<: *default
   database: <%= ENV.fetch("PGDB") { "tpdb_test" } %>
-  username: <%= ENV.fetch("PGUSER") { "postgres" } %>
+  username: <%= ENV.fetch("PGUSER") { "tpdb_user" } %>
   password: <%= ENV.fetch("PGPW") { "tpdb" } %>
 
 production:
