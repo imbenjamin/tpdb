@@ -35,8 +35,8 @@ class Location < ApplicationRecord
                         length: { minimum: 5 }
     validates :slug,     presence: true
     
-    has_many :areas
-    has_many :attractions
+    has_many :areas, dependent: :destroy
+    has_many :attractions, dependent: :nullify
     has_one_attached :logo
 
     has_many :children, class_name: "Location", foreign_key: "parent_id"

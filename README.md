@@ -20,7 +20,10 @@
 ### Set up Database
 9. Ensure local Postgres server is running (eg. using a tool like [pgAdmin](https://www.pgadmin.org/))
 10. For development, create a user with name `tpdb_user` and password `tpdb` with superuser permissions.
-11. Setup TPDB database: `rake db:setup`
+11. Setup TPDB database: `rake db:setup` or `bundle exec rake db:setup`
 
 ### Run Server
 12. Start server on localhost:3000:  `rails server`
+
+### Run tests
+13. Test with Rspec: `rspec` or `bundle exec rspec`
