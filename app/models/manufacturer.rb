@@ -6,11 +6,12 @@ class Manufacturer < ApplicationRecord
         slug
     end
 
+    def slug_alt
+        "#{name}-#{Manufacturer.count}"
+    end
+
     def slug_candidates
-        [
-            name,
-                -> { "#{name}-#{Manufacturer.count}" }
-        ]
+        [name, slug_alt]
     end
     
     def slug_value_changed?
