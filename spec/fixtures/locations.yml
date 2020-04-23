@@ -4,6 +4,16 @@ disneyland:
   name: 'Disneyland'
   slug: 'disneyland'
 
+walt_disney_world:
+  name: 'Walt Disney World'
+  slug: 'walt-disney-world'
+
 epcot:
   name: 'Epcot'
   slug: 'epcot'
+  parent_id: <%= Location.find_by(slug: 'walt-disney-world').id %>
+
+magic_kingdom:
+  name: 'Magic Kingdom'
+  slug: 'magic-kingdom'
+  parent_id: <%= Location.find_by(slug: 'walt-disney-world').id %>
