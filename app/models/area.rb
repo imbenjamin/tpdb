@@ -6,11 +6,12 @@ class Area < ApplicationRecord
         slug
     end
 
+    def slug_alt
+        "#{name}-#{Area.count}"
+    end
+
     def slug_candidates
-        [
-            name,
-                -> { "#{name}-#{Area.count}" }
-        ]
+        [name, slug_alt]
     end
     
     def slug_value_changed?

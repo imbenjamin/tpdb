@@ -6,16 +6,17 @@ class Attraction < ApplicationRecord
         slug
     end
 
+    def slug_alt
+        "#{name}-#{Attraction.count}"
+    end
+
     def slug_candidates
-        [
-          name,
-          -> { "#{name}-#{Attraction.count}" }
-        ]
-      end
-    
-      def slug_value_changed?
+        [name, slug_alt]
+    end
+
+    def slug_value_changed?
         name_changed?
-      end
+    end
 
     def uri
         api_attraction_path(id)

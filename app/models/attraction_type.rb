@@ -6,11 +6,12 @@ class AttractionType < ApplicationRecord
         slug
     end
 
+    def slug_alt
+        "#{name}-#{AttractionType.count}"
+    end
+
     def slug_candidates
-        [
-            name,
-                -> { "#{name}-#{AttractionType.count}" }
-        ]
+        [name, slug_alt]
     end
     
     def slug_value_changed?

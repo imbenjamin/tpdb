@@ -49,7 +49,7 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'webdrivers', '~> 3.0'
+  gem 'webdrivers', '~> 4.0'
   gem 'database_cleaner'
   gem 'rails-controller-testing'
   gem 'rspec_junit_formatter'
@@ -66,6 +66,6 @@ gem 'jquery-rails'
 gem 'bootstrap', '~> 4.3.1'
 gem 'font-awesome-rails'
 gem 'image_processing'
-gem 'sluggi'
+gem 'sluggi', '~> 0.5'
 gem 'ransack'
 gem "google-cloud-storage", "~> 1.8", require: false
