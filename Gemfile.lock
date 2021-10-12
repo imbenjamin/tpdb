@@ -164,7 +164,9 @@ GEM
       mimemagic (~> 0.3.2)
     memoist (0.16.2)
     method_source (1.0.0)
-    mimemagic (0.3.4)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_magick (4.10.1)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
@@ -184,7 +186,8 @@ GEM
       activerecord (>= 5.2.1)
     popper_js (1.16.0)
     public_suffix (4.0.4)
-    puma (3.12.4)
+    puma (4.3.9)
+      nio4r (~> 2.0)
     rack (2.2.2)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -339,7 +342,7 @@ DEPENDENCIES
   mini_magick (~> 4.9)
   mini_racer
   pg
-  puma (~> 3.12)
+  puma (~> 4.3)
   rails (~> 6.0.0)
   rails-controller-testing
   ransack
